@@ -64,6 +64,7 @@ const Team = () => {
             name={teamData[currentIndex].name}
             role={teamData[currentIndex].role}
             image={teamData[currentIndex].fullImage || teamData[currentIndex].image}
+            imageStyle={teamData[currentIndex].imageStyle}
             surname={teamData[currentIndex].surname}
             onClick={() => handleSelect((currentIndex + 1) % totalPeople)}
           />

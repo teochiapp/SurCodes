@@ -209,7 +209,7 @@ const Cardimage = styled.img`
   border-radius: 15px;
   filter: brightness(0.93) contrast(1.05) saturate(1.1);
   width: 110px;
-  height: 110px;
+  height: 140px;
   object-fit: cover;
   transition: transform 0.3s ease;
   margin-right: 0.2rem;

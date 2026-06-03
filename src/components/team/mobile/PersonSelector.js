@@ -15,6 +15,7 @@ const PersonSelector = ({ people, currentIndex, onSelect }) => {
               src={person.image}
               alt={person.name}
               $isActive={index === currentIndex}
+              style={person.avatarStyle || {}}
             />
             <PersonName>{person.surname}</PersonName>
           </PersonItem>
@@ -62,13 +63,15 @@ const PersonItem = styled.div`
 `;
 
 const PersonAvatar = styled.img`
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
+  width: 90px;
+  height: 120px;
+  border-radius: 12px;
   object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
   border: 2px solid ${props => props.$isActive ? 'var(--secondary-color)' : 'transparent'};
   transition: all 0.3s ease;
-  
+
   ${PersonItem}:hover & {
     border-color: var(--secondary-color);
   }

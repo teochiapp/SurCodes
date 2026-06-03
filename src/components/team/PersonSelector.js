@@ -127,7 +127,7 @@ const PersonSelector = ({ people, currentIndex }) => {
             <RightCol>
               <ImageAndSocialContainer>
                 <ImageContainer>
-                  <ProfileImg src={person.fullImage || person.image} alt={person.name} />
+                  <ProfileImg src={person.fullImage || person.image} alt={person.name} style={person.imageStyle} />
                   <ImageOverlay />
                 </ImageContainer>
 

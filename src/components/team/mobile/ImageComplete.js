@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ImageComplete = ({ name, role, image, onClick, surname }) => {
-  
+const ImageComplete = ({ name, role, image, imageStyle, onClick, surname }) => {
+
   return (
     <ImageContainer onClick={onClick}>
       <ImageWrapper>
-        <PersonImage src={image} alt={name} />
+        <PersonImage src={image} alt={name} style={imageStyle} />
         <ImageOverlay>
           <PersonInfo>
             <PersonName>{surname || name}</PersonName>
