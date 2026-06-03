@@ -1,5 +1,6 @@
 import { FaReact, FaNodeJs, FaDocker, FaWordpress, FaFigma, FaUsers, FaHashtag } from 'react-icons/fa';
-import { SiMysql, SiAdobeillustrator, SiAdobephotoshop, SiJavascript, SiCss3, SiMiro, SiAdobexd, SiPhp, SiDotnet } from 'react-icons/si';
+import { SiMysql, SiJavascript, SiCss, SiMiro, SiPhp } from 'react-icons/si';
+import { TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobeXd } from 'react-icons/tb';
 
 export const SKILL_CONFIG = {
   'react': {
@@ -33,12 +34,12 @@ export const SKILL_CONFIG = {
     label: 'Figma'
   },
   'illustrator': {
-    icon: SiAdobeillustrator,
+    icon: TbBrandAdobeIllustrator,
     color: '#FF9A00',
     label: 'Illustrator'
   },
   'photoshop': {
-    icon: SiAdobephotoshop,
+    icon: TbBrandAdobePhotoshop,
     color: '#31A8FF',
     label: 'Photoshop'
   },
@@ -53,12 +54,12 @@ export const SKILL_CONFIG = {
     label: 'JavaScript'
   },
   'css': {
-    icon: SiCss3,
+    icon: SiCss,
     color: '#1572B6',
     label: 'CSS'
   },
   'css3': {
-    icon: SiCss3,
+    icon: SiCss,
     color: '#1572B6',
     label: 'CSS'
   },
@@ -78,12 +79,12 @@ export const SKILL_CONFIG = {
     label: 'Miro'
   },
   'adobe xd': {
-    icon: SiAdobexd,
+    icon: TbBrandAdobeXd,
     color: '#FF61F6',
     label: 'Adobe XD'
   },
   'xd': {
-    icon: SiAdobexd,
+    icon: TbBrandAdobeXd,
     color: '#FF61F6',
     label: 'Adobe XD'
   },
