@@ -116,7 +116,7 @@ const Domus = () => {
                 handle="constructoradomus"
                 status="Proyectos Activos"
                 contactText="Ver Web"
-                avatarUrl="/presupuestos/domus.png"
+                avatarUrl="/presupuestos/constructoraDomus.png"
                 showUserInfo={false}
                 enableTilt={true}
                 className="full-cover-card domus-logo-card"
