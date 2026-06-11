@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiArrowLeft, FiCalendar, FiClock, FiUser, FiTag } from 'react-icons/fi'
 import { getBlogPostBySlug } from '../../data/blogData'
+import { useLanguage } from '../../contexts/LanguageContext'
 
 function BlogPost() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const post = getBlogPostBySlug(slug)
+  const { t, isEnglish } = useLanguage()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [slug])
 
   if (!post) {
     return (
@@ -25,16 +31,6 @@ function BlogPost() {
 
   return (
     <BlogPostContainer>
-      <TopNavigation>
-        <Logo onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <LogoImg src="/logo.png" alt="Logo" />
-        </Logo>
-        <BackButton onClick={() => navigate('/')}>
-          <FiArrowLeft />
-          Volver al inicio
-        </BackButton>
-      </TopNavigation>
-
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,6 +86,13 @@ function BlogPost() {
               </ShareButton>
             </ShareButtons>
           </ShareSection>
+
+          <BottomNavigation>
+            <BackButton onClick={() => navigate(isEnglish ? '/eng' : '/')}>
+              <FiArrowLeft />
+              {t('blog.backToHome', 'Volver al inicio')}
+            </BackButton>
+          </BottomNavigation>
         </PostFooter>
       </motion.div>
     </BlogPostContainer>
@@ -108,39 +111,7 @@ const BlogPostContainer = styled.div`
   color: var(--text-color, #E6E6E6);
 `
 
-const TopNavigation = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-`
 
-const Logo = styled.div`
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  
-  &:hover {
-    transform: scale(1.05);
-  }
-`
-
-const LogoImg = styled.img`
-  height: 60px;
-  width: 60px;
-  object-fit: contain;
-  border-radius: 50%;
-  
-  @media (max-width: 768px) {
-    height: 50px;
-    width: 50px;
-  }
-`
 
 const BackButton = styled.button`
   background: transparent;
@@ -438,4 +409,10 @@ const NotFoundText = styled.p`
   font-family: var(--text-font, 'Space Grotesk', sans-serif);
   margin-bottom: 2rem;
   opacity: 0.8;
+`
+
+const BottomNavigation = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
 ` 

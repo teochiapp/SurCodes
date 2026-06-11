@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { FiCode, FiDatabase, FiSettings, FiServer, FiTrendingUp, FiShield } from 'react-icons/fi'
+import { FiCode, FiDatabase, FiSettings, FiServer, FiTrendingUp, FiCpu } from 'react-icons/fi'
 import GradientText from '../GradientText'
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -22,14 +22,13 @@ function Services() {
       features: t('services.systems.features', ["Bases de Datos", "Sistemas", "APIs", "Integraciones"])
     },
     {
-      icon: <FiShield />,
-      title: t('services.audit.title', 'Auditoría de Sistemas'),
-      description: t('services.audit.description', 'Revisamos tu sitio web o sistema para detectar vulnerabilidades y mejorar la seguridad antes de que puedan ser aprovechadas.'),
-      features: t('services.audit.features', [
-        "OWASP Top 10",
-        "Análisis de Vulnerabilidades",
-        "Hardening Web",
-        "WordPress & APIs"
+      icon: <FiCpu />,
+      title: t('services.automation.title', 'Automatización e IA'),
+      description: t('services.automation.description', 'Optimizamos tus procesos de negocio mediante la automatización de tareas, integración de Inteligencia Artificial y el desarrollo de soluciones personalizadas a medida.'),
+      features: t('services.automation.features', [
+        "Automatización de Procesos",
+        "Soluciones a Medida",
+        "Optimización de Flujos con IA"
       ])
     },
     {

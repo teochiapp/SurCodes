@@ -6,7 +6,7 @@ export const people = [
     description: "Frontend Developer",
     role: "Backend",
     image: "team/Teo.png",
-    fullImage: "team/TeoFull.jpg",
+    fullImage: "team/TeoPortugal.jpg",
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
       github: "https://github.com/teochiapp",
@@ -84,7 +84,7 @@ export const getTeamData = (t) => [
     description: t('team.members.teo.description', "Frontend Developer"),
     role: "Frontend",
     image: "team/Teo.png",
-    fullImage: "team/TeoFull.jpg",
+    fullImage: "team/TeoPortugal.jpg",
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
       github: "https://github.com/teochiapp",

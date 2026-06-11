@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import AppRoutes from './AppRoutes'
 import ErrorBoundary from './components/ErrorBoundary'
 import { LanguageProvider } from './contexts/LanguageContext'
+import WhatsAppFloatingButton from './components/WhatsAppFloatingButton'
 import { setupGlobalCleanup } from './utils/cleanup'
 import scrollTriggerPatchUtils from './utils/scrollTriggerPatch'
 import { initializePerformanceOptimizations } from './utils/performanceOptimizer'
@@ -39,6 +40,7 @@ function App() {
     <ErrorBoundary>
       <LanguageProvider>
         <AppRoutes />
+        <WhatsAppFloatingButton />
       </LanguageProvider>
     </ErrorBoundary>
   )

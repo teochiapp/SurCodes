@@ -44,16 +44,26 @@ export default function AppRoutes() {
 
         {/* Blog posts */}
         <Route path='/blog/:slug' element={
-          <ErrorBoundary>
-            <BlogPost />
-          </ErrorBoundary>
+          <>
+            <ErrorBoundary>
+              <Header />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <BlogPost />
+            </ErrorBoundary>
+          </>
         } />
 
         {/* English blog posts */}
         <Route path='/eng/blog/:slug' element={
-          <ErrorBoundary>
-            <BlogPost />
-          </ErrorBoundary>
+          <>
+            <ErrorBoundary>
+              <Header />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <BlogPost />
+            </ErrorBoundary>
+          </>
         } />
 
         {/* Teo Chiappero page */}

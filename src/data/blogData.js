@@ -1,4 +1,4 @@
-export const blogPosts = [
+const rawBlogPosts = [
   {
     id: 1,
     title: "Clean Architecture: Principios para el Desarrollo de Software Mantenible",
@@ -642,6 +642,49 @@ export default ProductsContainer;</code></pre>
       "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=250&fit=crop",
     tags: ["Mobile First", "Responsive Design", "UX/UI", "Performance", "Web Development"],
   },
+  {
+    id: 5,
+    title: "Lecciones del libro 'Artificial' sobre la IA (Santiago Bilinkis)",
+    slug: "reflexiones-sobre-inteligencia-artificial-santiago-bilinkis",
+    excerpt: "Una selección de las ideas, dilemas y paradojas más impactantes del libro de Santiago Bilinkis sobre el futuro de la tecnología y la mente humana.",
+    content: `
+      <h2>El camino hacia la Inteligencia Artificial</h2>
+      <p>La búsqueda por emular y replicar la inteligencia humana fue, desde el principio, el puntapié inicial y el motor fundamental del desarrollo de la Inteligencia Artificial (IA). Sin embargo, nos encontramos con un dilema de entrada: <strong>no somos lo suficientemente inteligentes como para definir qué es la inteligencia</strong>.</p>
+      <p>Como decía el psicólogo y epistemólogo Jean Piaget, la inteligencia es <em>"el arte de saber qué hacer cuando no sabemos qué hacer"</em>. Es la capacidad de encontrarle la vuelta a situaciones complejas que no vivimos antes, para poder adaptarnos al entorno y resolver los problemas que van surgiendo en el camino. Además, la inteligencia no se limita al razonamiento lógico; también tiene que ver con aspectos emocionales, sociales y corporales. ¿O a alguien le queda alguna duda de que una gran coreografía o una jugada extraordinaria de fútbol son tremendos despliegues de inteligencia humana?</p>
+
+      <h2>La Paradoja de Moravec y el Pensamiento Inconsciente</h2>
+      <p>El cerebro humano de hoy es prácticamente idéntico al de nuestros antepasados de hace diez mil años. Lo que nos diferencia es una inteligencia cultivada, acumulativa, transmitida a lo largo de una historia educativa y cultural. Pero la forma en que las máquinas aprenden cambió las reglas del juego.</p>
+      <p>Alan Turing representaba el pensamiento consciente —el más estructurado y fácil de explicar—. Por otro lado, genios como Capablanca o Alonso encarnan la dimensión inconsciente, esa que entra en juego cuando sabemos o hacemos cosas sin saber cómo ni por qué. Mientras que los primeros programas de ajedrez (como Turochamp) intentaban imitar el pensamiento consciente, el <strong>Deep Learning (aprendizaje profundo) busca emular el pensamiento inconsciente</strong>. A través de redes neuronales, el sistema descubre atributos y representaciones intermedias que le permiten aprender a resolver tareas complejas.</p>
+      <p>Ahí es donde entra en juego la famosa <strong>Paradoja de Moravec</strong>: las habilidades que a los humanos nos resultan difíciles, como resolver problemas matemáticos o programar, en realidad les resultan más fáciles a las computadoras. En cambio, las que nos parecen una pavada, como caminar, mantener el equilibrio o sostener un huevo con la fuerza justa para que no se caiga ni se rompa, son dificilísimas de programar en una máquina.</p>
+
+      <h2>La Revolución del Hardware y los Transformers</h2>
+      <p>Este salto de calidad no hubiera sido posible sin la <strong>GPU (Graphics Processing Unit)</strong>, capaz de meter millones de cálculos en paralelo en lugar de hacerlos de a uno. Gracias a esta capacidad de cómputo y a la arquitectura de los <em>transformers</em>, las máquinas ganaron la capacidad de elegir qué datos son importantes y guardarlos para usarlos más adelante. Esta habilidad es tan clave que, recién cuando la IA la incorporó, empezamos a verla como verdaderamente inteligente.</p>
+      <p>A partir de ahí, las máquinas parecieron listas para dejarnos atrás incluso en las cosas más humanas, como la creatividad. Al cruzar una red generativa (que produce objetos parecidos a los de su entrenamiento) con una discriminadora (que se encarga de detectar qué es falso), nacieron sistemas capaces de crear sin costo adicional por complejidad. Una IA no se cansa, no se aburre, no pierde la motivación ni baja el rendimiento con la repetición. En ámbitos como el ajedrez, el mejor jugador humano ya no tiene chances de ganar.</p>
+
+      <h2>Dilemas Educativos y la Pérdida de Habilidades</h2>
+      <p>La adopción masiva de tecnologías que nos hacen la vida más fácil nos hizo perder un montón de habilidades. El argumento de que <em>"no hace falta aprenderse las cosas de memoria porque están en Google"</em> se parece bastante a decir que <em>"no hace falta saber sumar o restar porque ya hay calculadoras"</em>. Hay pilares básicos del pensamiento, como la concentración, la comprensión lectora, el uso del lenguaje y el pensamiento lógico-matemático, que son claves para el pensamiento crítico.</p>
+      <p>Esto le plantea un gran desafío a la educación de hoy. El aprendizaje solo sirve si hay motivación, un ingrediente indispensable para activar los procesos químicos del cerebro que permiten la neuroplasticidad. Frente a esto, aparecen intentos de armar una "escuela TikTokera" que tenga a los alumnos embobados con ritmos dinámicos y dopaminérgicos. Pero esto falla de raíz: estamos delegando la capacidad de esforzarse y motivarse para resolver problemas difíciles.</p>
+
+      <h2>El Futuro del Trabajo y el Rol Humano</h2>
+      <p>La automatización avanza a pasos agigantados. De hecho, ¡los programadores corren el riesgo de que los reemplacen los mismos programas que ellos crearon! Ahí aparece el miedo lógico: ¿qué sentiríamos ante seres artificiales mucho más inteligentes que nosotros? Históricamente, <strong>la especie más inteligente es la que pone las reglas</strong>.</p>
+      <p>Frente a esta realidad, viene bien recordar qué es lo que nos hace humanos. No queremos más o menos a un amigo por su productividad o por lo que logre a nivel comercial, sino porque la pasamos bien juntos, porque podemos darle un abrazo y porque está ahí cuando lo necesitamos.</p>
+      <p>Para movernos en este nuevo entorno, podemos aplicar un método simple para mejorar cómo pensamos frente a cualquier problema: primero, intentar entenderlo lo mejor posible; después, cuando creamos que ya lo entendimos, explicárselo de forma simple a un chico de diez años. Y, sobre todo, no perder la capacidad de asombrarnos y adaptarnos a los cambios constantes.</p>
+    `,
+    author: "Teo Chiappero",
+    date: "11 Jun 2026",
+    readTime: "6 min",
+    category: "Inteligencia Artificial",
+    image: "https://media.licdn.com/dms/image/v2/D4D22AQF8kiWq420i_Q/feedshare-shrink_800/B4DZpLW4WYGwAg-/0/1762200890462?e=2147483647&v=beta&t=pF-dGu4MamY6lFEexKBVQImM28GlYvZs8CefcNR3KcU",
+    tags: ["Inteligencia Artificial", "Santiago Bilinkis", "Tecnología", "Filosofía", "Educación"],
+  },
+];
+
+export const blogPosts = [
+  rawBlogPosts[4], // ID 5: Artificial (Bilinkis) - Most recent
+  rawBlogPosts[0], // ID 1: Clean Architecture
+  rawBlogPosts[2], // ID 3: Evolución del Frontend
+  rawBlogPosts[1], // ID 2: Container Pattern
+  rawBlogPosts[3], // ID 4: Mobile First
 ];
 
 export const getBlogPostById = (id) => {
@@ -673,6 +716,7 @@ export const getBlogPosts = (t) => {
       case 2: translationKey = 'containerPattern'; break;
       case 3: translationKey = 'frontendEvolution'; break;
       case 4: translationKey = 'mobileFirst'; break;
+      case 5: translationKey = 'artificialBilinkis'; break;
       default: return post;
     }
 

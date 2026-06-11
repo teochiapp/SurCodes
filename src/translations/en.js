@@ -29,10 +29,10 @@ export const en = {
             description: "We develop the internal logic of your application and manage all information securely and efficiently.",
             features: ["Databases", "Systems", "APIs", "Integrations"]
         },
-        audit: {
-            title: "System Audit",
-            description: "We review your website or system to detect vulnerabilities and improve security before they can be exploited.",
-            features: ["OWASP Top 10", "Vulnerability Analysis", "Web Hardening", "WordPress & APIs"]
+        automation: {
+            title: "Automation & AI",
+            description: "We optimize your business processes through task automation, Artificial Intelligence integration, and the development of custom tailored solutions.",
+            features: ["Process Automation", "AI Integration", "Custom Solutions", "Workflow Optimization"]
         },
         maintenance: {
             title: "Maintenance",
@@ -61,6 +61,7 @@ export const en = {
         title: "Our Blog",
         subtitle: "We explore the latest trends and best practices in technological development",
         readMore: "Read More",
+        backToHome: "Back to Home",
         posts: {
             cleanArchitecture: {
                 title: "Clean Architecture: Principles for Maintainable Software Development",
@@ -89,6 +90,13 @@ export const en = {
                 category: "Responsive Design",
                 readTime: "7 min read",
                 date: "Jul 25, 2025"
+            },
+            artificialBilinkis: {
+                title: "Reflections on Artificial Intelligence: Lessons from 'Artificial' by Santiago Bilinkis",
+                excerpt: "A curated selection of the most impactful ideas, dilemmas, and paradoxes from Santiago Bilinkis's book on the future of technology and human cognition.",
+                category: "Artificial Intelligence",
+                readTime: "6 min read",
+                date: "Jun 11, 2026"
             }
         }
     },
@@ -181,5 +189,9 @@ export const en = {
         rights: "All rights reserved.",
         madeWith: "Made with",
         in: "in"
+    },
+    whatsapp: {
+        message: "I want to start building my website",
+        tooltip: "Let's chat!"
     }
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link as ScrollLink } from "react-scroll";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FiMenu, FiX, FiGithub, FiInstagram, FiMail } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedButton from "../components/hero/extensions/AnimatedButton";
@@ -13,7 +13,18 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useLanguage();
+
+  const isEnglish = location.pathname.startsWith('/eng');
+  const isHome = location.pathname === '/' || location.pathname === '/eng';
+
+  const handleNavClick = (targetId) => {
+    setIsOpen(false);
+    if (!isHome) {
+      navigate(isEnglish ? `/eng#${targetId}` : `/#${targetId}`);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,7 +81,14 @@ function Header() {
     <HeaderContainer $isScrolled={isScrolled}>
       {/* Sección 1: Logo */}
       <LogoSection $isScrolled={isScrolled}>
-        <LogoLink to="home" smooth={true} duration={500}>
+        <LogoLink
+          as={isHome ? ScrollLink : "a"}
+          to={isHome ? "home" : undefined}
+          href={isHome ? undefined : (isEnglish ? "/eng#home" : "/#home")}
+          smooth={isHome ? true : undefined}
+          duration={isHome ? 500 : undefined}
+          onClick={() => handleNavClick("home")}
+        >
           <LogoImg src="/logo.png" alt="Logo" $isScrolled={isScrolled} />
         </LogoLink>
       </LogoSection>
@@ -79,42 +97,52 @@ function Header() {
       <NavSection $isScrolled={isScrolled}>
         <Nav>
           <StyledLink
-            to="home"
-            smooth={true}
-            duration={300}
-            onClick={() => setIsOpen(false)}
+            as={isHome ? ScrollLink : "a"}
+            to={isHome ? "home" : undefined}
+            href={isHome ? undefined : (isEnglish ? "/eng#home" : "/#home")}
+            smooth={isHome ? true : undefined}
+            duration={isHome ? 300 : undefined}
+            onClick={() => handleNavClick("home")}
           >
             {t('header.home', 'Inicio')}
           </StyledLink>
           <StyledLink
-            to="services"
-            smooth={true}
-            duration={300}
-            onClick={() => setIsOpen(false)}
+            as={isHome ? ScrollLink : "a"}
+            to={isHome ? "services" : undefined}
+            href={isHome ? undefined : (isEnglish ? "/eng#services" : "/#services")}
+            smooth={isHome ? true : undefined}
+            duration={isHome ? 300 : undefined}
+            onClick={() => handleNavClick("services")}
           >
             {t('header.services', 'Servicios')}
           </StyledLink>
           <StyledLink
-            to="team"
-            smooth={true}
-            duration={300}
-            onClick={() => setIsOpen(false)}
+            as={isHome ? ScrollLink : "a"}
+            to={isHome ? "team" : undefined}
+            href={isHome ? undefined : (isEnglish ? "/eng#team" : "/#team")}
+            smooth={isHome ? true : undefined}
+            duration={isHome ? 300 : undefined}
+            onClick={() => handleNavClick("team")}
           >
             {t('header.team', 'Equipo')}
           </StyledLink>
           <StyledLink
-            to="portfolio"
-            smooth={true}
-            duration={300}
-            onClick={() => setIsOpen(false)}
+            as={isHome ? ScrollLink : "a"}
+            to={isHome ? "portfolio" : undefined}
+            href={isHome ? undefined : (isEnglish ? "/eng#portfolio" : "/#portfolio")}
+            smooth={isHome ? true : undefined}
+            duration={isHome ? 300 : undefined}
+            onClick={() => handleNavClick("portfolio")}
           >
             {t('header.projects', 'Proyectos')}
           </StyledLink>
           <StyledLink
-            to="contact"
-            smooth={true}
-            duration={300}
-            onClick={() => setIsOpen(false)}
+            as={isHome ? ScrollLink : "a"}
+            to={isHome ? "contact" : undefined}
+            href={isHome ? undefined : (isEnglish ? "/eng#contact" : "/#contact")}
+            smooth={isHome ? true : undefined}
+            duration={isHome ? 300 : undefined}
+            onClick={() => handleNavClick("contact")}
           >
             {t('header.contact', 'Contacto')}
           </StyledLink>
@@ -169,12 +197,16 @@ function Header() {
               <SidebarLogo>
                 <SidebarLogoDiv onClick={() => {
                   setIsOpen(false);
-                  setTimeout(() => {
-                    const element = document.getElementById('home');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }, 300);
+                  if (isHome) {
+                    setTimeout(() => {
+                      const element = document.getElementById('home');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }, 300);
+                  } else {
+                    navigate(isEnglish ? '/eng#home' : '/#home');
+                  }
                 }}>
                   <SidebarLogoImg src="/logo.png" alt="Logo" />
                 </SidebarLogoDiv>
@@ -183,42 +215,67 @@ function Header() {
               {/* Menú de navegación */}
               <SidebarNav>
                 <SidebarLink
-                  to="home"
-                  smooth={true}
-                  duration={500}
-                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
+                  as={isHome ? ScrollLink : "a"}
+                  to={isHome ? "home" : undefined}
+                  href={isHome ? undefined : (isEnglish ? "/eng#home" : "/#home")}
+                  smooth={isHome ? true : undefined}
+                  duration={isHome ? 500 : undefined}
+                  onClick={() => {
+                    setTimeout(() => setIsOpen(false), 100);
+                    if (!isHome) navigate(isEnglish ? '/eng#home' : '/#home');
+                  }}
                 >
                   {t('header.home', 'Inicio')}
                 </SidebarLink>
                 <SidebarLink
-                  to="services"
-                  smooth={true}
-                  duration={500}
-                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
+                  as={isHome ? ScrollLink : "a"}
+                  to={isHome ? "services" : undefined}
+                  href={isHome ? undefined : (isEnglish ? "/eng#services" : "/#services")}
+                  smooth={isHome ? true : undefined}
+                  duration={isHome ? 500 : undefined}
+                  onClick={() => {
+                    setTimeout(() => setIsOpen(false), 100);
+                    if (!isHome) navigate(isEnglish ? '/eng#services' : '/#services');
+                  }}
                 >
                   {t('header.services', 'Servicios')}
                 </SidebarLink>
                 <SidebarLink
-                  to="team"
-                  smooth={true}
-                  duration={500}
-                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
+                  as={isHome ? ScrollLink : "a"}
+                  to={isHome ? "team" : undefined}
+                  href={isHome ? undefined : (isEnglish ? "/eng#team" : "/#team")}
+                  smooth={isHome ? true : undefined}
+                  duration={isHome ? 500 : undefined}
+                  onClick={() => {
+                    setTimeout(() => setIsOpen(false), 100);
+                    if (!isHome) navigate(isEnglish ? '/eng#team' : '/#team');
+                  }}
                 >
                   {t('header.team', 'Equipo')}
                 </SidebarLink>
                 <SidebarLink
-                  to="portfolio"
-                  smooth={true}
-                  duration={500}
-                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
+                  as={isHome ? ScrollLink : "a"}
+                  to={isHome ? "portfolio" : undefined}
+                  href={isHome ? undefined : (isEnglish ? "/eng#portfolio" : "/#portfolio")}
+                  smooth={isHome ? true : undefined}
+                  duration={isHome ? 500 : undefined}
+                  onClick={() => {
+                    setTimeout(() => setIsOpen(false), 100);
+                    if (!isHome) navigate(isEnglish ? '/eng#portfolio' : '/#portfolio');
+                  }}
                 >
                   {t('header.projects', 'Proyectos')}
                 </SidebarLink>
                 <SidebarLink
-                  to="contact"
-                  smooth={true}
-                  duration={500}
-                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
+                  as={isHome ? ScrollLink : "a"}
+                  to={isHome ? "contact" : undefined}
+                  href={isHome ? undefined : (isEnglish ? "/eng#contact" : "/#contact")}
+                  smooth={isHome ? true : undefined}
+                  duration={isHome ? 500 : undefined}
+                  onClick={() => {
+                    setTimeout(() => setIsOpen(false), 100);
+                    if (!isHome) navigate(isEnglish ? '/eng#contact' : '/#contact');
+                  }}
                 >
                   {t('header.contact', 'Contacto')}
                 </SidebarLink>
@@ -479,18 +536,6 @@ const SidebarLogo = styled.div`
 `;
 
 const SidebarLogoDiv = styled.div`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-
-const SidebarLogoLink = styled(ScrollLink)`
   display: flex;
   align-items: center;
   text-decoration: none;
