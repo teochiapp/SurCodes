@@ -1,22 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { getProjectsData } from '../../data/projectsData';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const LogoBubbles = ({ onProjectClick }) => {
+  const { t } = useLanguage();
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const containerRef = useRef(null);
 
-  const logos = [
-    { src: '/portfolio/vinoLogo.png', alt: 'Vinotipia', projectIndex: 0 },
-    { src: '/portfolio/marinochoa.png', alt: 'Marin Ochoa', projectIndex: 1 },
-    { src: '/portfolio/inmove-logo.png', alt: 'Inmove', projectIndex: 2 },
-    { src: '/portfolio/comber-logo.png', alt: 'Comber', projectIndex: 3 },
-    { src: '/portfolio/tresnoches-logo.png', alt: 'Tres Noches', projectIndex: 4 },
-    { src: '/portfolio/JoyLogo.png', alt: 'Joycof', projectIndex: 5 },
-    { src: '/portfolio/NhLogo.png', alt: 'NH', projectIndex: 6 },
-    { src: '/portfolio/LogoSADA.svg', alt: 'SADA', projectIndex: 7 },
-    { src: '/portfolio/logounavidamejor.png', alt: 'Una Vida Mejor', projectIndex: 8 }
-  ];
+  // Derivado dinámicamente desde projectsData — el orden y los logos se
+  // mantienen sincronizados sin necesidad de editar este archivo.
+  const logos = getProjectsData(t).map((project, index) => ({
+    src: project.logo || project.icon || project.image,
+    alt: project.title,
+    projectIndex: index,
+    isJoycof: project.title?.toLowerCase().includes('joycof'),
+    isSada: project.title?.toLowerCase().includes('sada'),
+  }));
 
   const checkScrollPosition = () => {
     if (containerRef.current) {
@@ -74,8 +75,8 @@ const LogoBubbles = ({ onProjectClick }) => {
             <LogoImage
               src={logo.src}
               alt={logo.alt}
-              $isSada={logo.alt === 'SADA'}
-              $isJoycof={logo.alt.toLowerCase().includes('joycof')}
+              $isSada={logo.isSada}
+              $isJoycof={logo.isJoycof}
             />
           </Bubble>
         ))}

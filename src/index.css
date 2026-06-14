@@ -97,9 +97,8 @@ body {
 /* Prevenir problemas de scroll en cambios de dirección */
 * {
   scroll-behavior: smooth;
-  /* Prevenir saltos visuales */
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  /* NOTA: backface-visibility eliminado del selector global — causaba overhead
+     de GPU compositing en cada elemento en WebViews móviles (Instagram, etc.) */
 }
 
 /* ========== Scrollbars personalizadas ========== */
@@ -280,15 +279,33 @@ img {
   pointer-events: none;
 }
 
-/* Optimización específica para motion divs de las secciones */
-[data-motion-section] {
-  /* Optimización leve sin afectar layout general */
-  will-change: transform, opacity;
+/*
+ * [data-motion-section] solo recibe will-change mientras la animación está activa.
+ * Una vez completada (.animation-complete) se resetea a 'auto' para liberar
+ * memoria GPU — especialmente importante en dispositivos móviles.
+ */
+[data-motion-section]:not(.animation-complete) {
+  will-change: opacity, transform;
 }
 
-/* Cuando termine la animación, quitar will-change */
 [data-motion-section].animation-complete {
   will-change: auto;
+  /* Asegurar visibilidad completa en WebViews que no ejecutaron la animación */
+  opacity: 1 !important;
+}
+
+/*
+ * Fallback CSS para navegadores Instagram / WebView donde framer-motion
+ * puede no ejecutar sus animaciones correctamente.
+ * Si la sección ya tiene la clase animation-complete pero opacity sigue en 0,
+ * el !important de arriba lo soluciona.
+ * Para secciones que no llegaron a animation-complete pero el usuario ya hizo
+ * scroll, usamos una transición CSS como respaldo.
+ */
+@media (max-width: 768px) {
+  [data-motion-section] {
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
 }
 
 /* Preservar comportamiento de background fixed */

@@ -11,13 +11,14 @@ const PersonSelector = ({ people, currentIndex, onSelect }) => {
             $isActive={index === currentIndex}
             onClick={() => onSelect(index)}
           >
-            <PersonAvatar
-              src={person.image}
-              alt={person.name}
-              $isActive={index === currentIndex}
-              style={person.avatarStyle || {}}
-            />
-            <PersonName>{person.surname}</PersonName>
+            <AvatarWrapper $isActive={index === currentIndex}>
+              <PersonAvatar
+                src={person.image}
+                alt={person.name}
+                style={person.avatarStyle || {}}
+              />
+              <PersonName>{person.surname}</PersonName>
+            </AvatarWrapper>
           </PersonItem>
         ))}
       </PeopleGrid>
@@ -48,40 +49,60 @@ const PeopleGrid = styled.div`
 
 const PersonItem = styled.div`
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px;
+  justify-content: center;
+  padding: 5px;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background: ${props => props.$isActive ? 'rgba(var(--primary-color-rgb), 0.1)' : 'transparent'};
-  border: 2px solid ${props => props.$isActive ? 'var(--secondary-color)' : 'transparent'};
   &:hover {
     background: rgba(var(--primary-color-rgb), 0.05);
     transform: translateX(3px);
   }
 `;
 
-const PersonAvatar = styled.img`
+const AvatarWrapper = styled.div`
+  position: relative;
   width: 90px;
   height: 120px;
   border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: ${props =>
+    props.$isActive
+      ? '0 0 0 2px var(--secondary-color), 0 4px 16px rgba(0,0,0,0.6)'
+      : '0 2px 10px rgba(0,0,0,0.45)'};
+  transition: box-shadow 0.3s ease;
+`;
+
+const PersonAvatar = styled.img`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center top;
-  flex-shrink: 0;
-  border: 2px solid ${props => props.$isActive ? 'var(--secondary-color)' : 'transparent'};
-  transition: all 0.3s ease;
-
-  ${PersonItem}:hover & {
-    border-color: var(--secondary-color);
-  }
+  display: block;
 `;
 
 const PersonName = styled.span`
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-color);
-  flex: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 6px 5px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.45) 60%,
+    transparent 100%
+  );
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  text-shadow:
+    0 1px 4px rgba(0,0,0,0.9),
+    0 0 8px rgba(0,0,0,0.6);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

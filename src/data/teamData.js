@@ -7,6 +7,10 @@ export const people = [
     role: "Backend",
     image: "team/Teo.png",
     fullImage: "team/TeoPortugal.jpg",
+    avatarStyle: {
+      objectFit: "contain",
+      objectPosition: "center top"
+    },
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
       github: "https://github.com/teochiapp",
@@ -85,6 +89,10 @@ export const getTeamData = (t) => [
     role: "Frontend",
     image: "team/Teo.png",
     fullImage: "team/TeoPortugal.jpg",
+    avatarStyle: {
+      objectFit: "contain",
+      objectPosition: "center top"
+    },
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
       github: "https://github.com/teochiapp",

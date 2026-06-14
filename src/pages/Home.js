@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useRef, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { motion, MotionConfig } from 'framer-motion'
-import { useRef } from 'react'
-import { useState, useEffect } from 'react'
 import { useScrollOptimization, useOptimizedInView } from '../hooks/useScrollOptimization'
 import Hero from '../components/hero/hero'
 import Services from '../components/services/services.backup'
@@ -14,52 +12,41 @@ import Contact from '../components/contact/contact'
 import Skills from '../components/skills/skills'
 import Footer from './Footer';
 
+// Detectar navegador de Instagram / WebView limitado para simplificar animaciones
+const detectLimitedWebView = () => {
+  if (typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent || '';
+  return /Instagram|FBAN|FBAV|FB_IAB|wv/i.test(ua) ||
+    (!/Safari/.test(ua) && /AppleWebKit/.test(ua) && /Mobile/.test(ua));
+};
+
 const Home = () => {
-  // Hook para optimizar scroll
   useScrollOptimization();
 
+  // Detectar WebView limitado (Instagram, etc.) una sola vez
+  const isLimited = useMemo(() => detectLimitedWebView(), []);
+
   // Refs para detectar cuando cada componente está en viewport
-  const servicesRef = useRef(null)
-  const teamRef = useRef(null)
-  const blogRef = useRef(null)
-  const portfolioRef = useRef(null)
-  const contactRef = useRef(null)
-  const skillsRef = useRef(null)
+  const servicesRef = useRef(null);
+  const teamRef = useRef(null);
+  const blogRef = useRef(null);
+  const portfolioRef = useRef(null);
+  const contactRef = useRef(null);
+  const skillsRef = useRef(null);
   const footerRef = useRef(null);
 
-  // Hooks optimizados para detectar cuando cada componente está visible
-  const isServicesInView = useOptimizedInView(servicesRef)
-  const isTeamInView = useOptimizedInView(teamRef)
-  const isBlogInView = useOptimizedInView(blogRef)
-  const isPortfolioInView = useOptimizedInView(portfolioRef, { margin: "-150px" })
-  const isContactInView = useOptimizedInView(contactRef)
-  const isSkillsInView = useOptimizedInView(skillsRef)
+  // Hooks de visibilidad — en WebViews limitados retornan true de inmediato
+  const isServicesInView = useOptimizedInView(servicesRef);
+  const isTeamInView = useOptimizedInView(teamRef);
+  const isBlogInView = useOptimizedInView(blogRef);
+  const isPortfolioInView = useOptimizedInView(portfolioRef);
+  const isContactInView = useOptimizedInView(contactRef);
+  const isSkillsInView = useOptimizedInView(skillsRef);
   const isFooterInView = useOptimizedInView(footerRef);
 
-  // Fallback: si el observer no dispara en móvil, forzar visibilidad
-  const [forceShowPortfolio, setForceShowPortfolio] = useState(false);
+  // Scroll inicial a anchor
   useEffect(() => {
-    const isMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-
-    if (isMobile) {
-      // En móviles, ser más agresivo y mostrar después de poco tiempo
-      const timeout = setTimeout(() => {
-        setForceShowPortfolio(true);
-      }, 800);
-      return () => clearTimeout(timeout);
-    }
-
-    if (isPortfolioInView) {
-      setForceShowPortfolio(false);
-      return;
-    }
-  }, [isPortfolioInView]);
-
-  // Handle initial hash scroll
-  useEffect(() => {
-    // Check if there is a hash in the URL
     if (window.location.hash) {
-      // Small delay to ensure DOM is ready and animations don't interfere
       setTimeout(() => {
         const id = window.location.hash.substring(1);
         const element = document.getElementById(id);
@@ -70,12 +57,27 @@ const Home = () => {
     }
   }, []);
 
+  // En WebViews limitados usamos transición CSS pura (más fluida y confiable)
+  const sectionVariants = isLimited
+    ? { initial: {}, animate: {} } // Sin animación framer-motion; CSS se encarga
+    : {
+        initial: { opacity: 0, y: 15 },
+        animate: { opacity: 1, y: 0 },
+      };
+
+  const scaleVariants = isLimited
+    ? { initial: {}, animate: {} }
+    : {
+        initial: { opacity: 0, scale: 0.98 },
+        animate: { opacity: 1, scale: 1 },
+      };
+
   return (
     <MotionConfig
       transition={{
         type: "tween",
         ease: "easeOut",
-        duration: 0.3
+        duration: isLimited ? 0.25 : 0.35,
       }}
       reducedMotion="user"
     >
@@ -85,8 +87,9 @@ const Home = () => {
         <motion.div
           ref={servicesRef}
           data-motion-section
-          initial={{ opacity: 0, y: 20 }}
-          animate={isServicesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          layout={false}
+          {...sectionVariants}
+          animate={isServicesInView ? sectionVariants.animate : sectionVariants.initial}
           className={isServicesInView ? 'animation-complete' : ''}
         >
           <Services />
@@ -95,9 +98,10 @@ const Home = () => {
         <motion.div
           ref={portfolioRef}
           data-motion-section
-          initial={{ opacity: 0, y: 20 }}
-          animate={(isPortfolioInView || forceShowPortfolio) ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          className={(isPortfolioInView || forceShowPortfolio) ? 'animation-complete' : ''}
+          layout={false}
+          {...sectionVariants}
+          animate={isPortfolioInView ? sectionVariants.animate : sectionVariants.initial}
+          className={isPortfolioInView ? 'animation-complete' : ''}
         >
           <Portfolio />
         </motion.div>
@@ -105,8 +109,9 @@ const Home = () => {
         <motion.div
           ref={skillsRef}
           data-motion-section
-          initial={{ opacity: 0, y: 20 }}
-          animate={isSkillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          layout={false}
+          {...sectionVariants}
+          animate={isSkillsInView ? sectionVariants.animate : sectionVariants.initial}
           className={isSkillsInView ? 'animation-complete' : ''}
         >
           <Skills />
@@ -115,8 +120,9 @@ const Home = () => {
         <motion.div
           ref={teamRef}
           data-motion-section
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={isTeamInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
+          layout={false}
+          {...scaleVariants}
+          animate={isTeamInView ? scaleVariants.animate : scaleVariants.initial}
           className={isTeamInView ? 'animation-complete' : ''}
         >
           <div className="team-mobile">
@@ -130,8 +136,9 @@ const Home = () => {
         <motion.div
           ref={blogRef}
           data-motion-section
-          initial={{ opacity: 0, y: 20 }}
-          animate={isBlogInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          layout={false}
+          {...sectionVariants}
+          animate={isBlogInView ? sectionVariants.animate : sectionVariants.initial}
           className={isBlogInView ? 'animation-complete' : ''}
         >
           <Blog />
@@ -140,8 +147,9 @@ const Home = () => {
         <motion.div
           ref={contactRef}
           data-motion-section
-          initial={{ opacity: 0, y: 20 }}
-          animate={isContactInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          layout={false}
+          {...sectionVariants}
+          animate={isContactInView ? sectionVariants.animate : sectionVariants.initial}
           className={isContactInView ? 'animation-complete' : ''}
         >
           <Contact />
@@ -150,8 +158,9 @@ const Home = () => {
         <motion.div
           ref={footerRef}
           data-motion-section
-          initial={{ opacity: 0 }}
-          animate={isFooterInView ? { opacity: 1 } : { opacity: 0 }}
+          layout={false}
+          initial={isLimited ? {} : { opacity: 0 }}
+          animate={isFooterInView ? { opacity: 1 } : (isLimited ? {} : { opacity: 0 })}
           className={isFooterInView ? 'animation-complete' : ''}
         >
           <Footer />
